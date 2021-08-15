@@ -2,7 +2,10 @@ package com.example.appnotification
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         btnSend.setOnClickListener {
             this.showNotification("1234", "bootcamp Android", "Curso Kotlin")
         }
-
+        FirebaseInstallations.getInstance().getToken(true).addOnCompleteListener {
+            val token = it.result!!.token
+            val msg = "Token -> $token"
+            Log.d("Firebase Message", msg)
+        }
     }
 }
